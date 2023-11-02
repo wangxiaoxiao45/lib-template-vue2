@@ -1,5 +1,5 @@
 {
-  "name": "vue-show-more-text",
+  "name": "@wangxiaoxiao45/vue-show-more-text",
   "version": "2.0.2",
   "files": [
     "dist/*",
