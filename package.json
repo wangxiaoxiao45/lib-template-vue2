@@ -89,5 +89,8 @@
     "ellipsis",
     "showmore",
     "showmore text"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
