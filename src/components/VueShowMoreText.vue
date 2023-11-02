@@ -1,27 +1,12 @@
 <template>
   <div class="container" v-bind:style="additionalContainerCss">
-    <!-- eslint-disable -->  
-    <div ref="detail" v-bind:class="{'default': !expanded, 'expanded': expanded}" 
-      v-bind:style="`--lines: ${lines}`">
-      <div v-bind:style="additionalCss" 
-        v-html="text">
-      </div>
+    <!-- eslint-disable -->
+    <div ref="detail" v-bind:class="{ default: !expanded, expanded: expanded }" v-bind:style="`--lines: ${lines}`">
+      <div v-bind:style="additionalCss" v-html="text"></div>
     </div>
     <!-- eslint-enable -->
-    <a
-      v-if="hasMore && triggerShowMore"
-      class="anchor"
-      :style="additionalAnchorCss" 
-      @click="onClick"
-      >{{ moreText }}</a
-    >
-    <a
-      v-if="hasMore && expanded"
-      class="anchor"
-      :style="additionalAnchorCss" 
-      @click="onClick"
-      >{{ lessText }}</a
-    >
+    <a v-if="hasMore && triggerShowMore" class="anchor" :style="additionalAnchorCss" @click="onClick">{{ moreText }}</a>
+    <a v-if="hasMore && expanded" class="anchor" :style="additionalAnchorCss" @click="onClick">{{ lessText }}</a>
   </div>
 </template>
 
@@ -37,8 +22,8 @@ export default {
       type: String,
       default: '',
     },
-    additionalContainerCss:{
-      type: String, 
+    additionalContainerCss: {
+      type: String,
       default: '',
     },
     additionalContentCss: {
@@ -73,37 +58,34 @@ export default {
     }
   },
   computed: {
-    additionalCss: function () {
-      if(this.expanded) {
+    additionalCss: function() {
+      if (this.expanded) {
         return this.additionalContentCss
-      }else{
+      } else {
         return this.additionalContentExpandedCss
       }
-    }
+    },
   },
   mounted() {
-    this.$nextTick(function () {
+    this.$nextTick(function() {
       this.determineShowMore()
     })
   },
   updated() {
-    this.$nextTick(function () {
+    this.$nextTick(function() {
       this.determineShowMore()
     })
   },
   methods: {
     onClick() {
       this.expanded = !this.expanded
-      this.$emit('click', this.expanded);
+      this.$emit('click', this.expanded)
     },
     determineShowMore() {
       // 文字列が省略ellipsis(...)されているかをチェックする
       // scrollWidth、scrollHeight：現在スクロール領域の外側に隠れている部分を含む、ボックスのすべてのコンテンツのサイズ。
       // offsetWidth、offsetHeight：すべての境界線を含むビジュアルボックスのサイズ。
-      if (
-        this.$refs.detail &&
-        this.$refs.detail.offsetHeight < this.$refs.detail.scrollHeight
-      ) {
+      if (this.$refs.detail && this.$refs.detail.offsetHeight < this.$refs.detail.scrollHeight) {
         this.triggerShowMore = true
       } else {
         this.triggerShowMore = false
@@ -113,34 +95,33 @@ export default {
 }
 </script>
 <style scoped>
-
-.default{
+.default {
   --lines: 3;
-  white-space: pre-line; 
-  display: -webkit-box; 
-  max-width:100%; 
-  -webkit-line-clamp: var(--lines); 
-  -webkit-box-orient: vertical; 
-  overflow: hidden; 
+  white-space: pre-line;
+  display: -webkit-box;
+  max-width: 100%;
+  -webkit-line-clamp: var(--lines);
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.expanded{
-  display: block; 
-  display: -webkit-box; 
+.expanded {
+  display: block;
+  display: -webkit-box;
   white-space: pre-line;
 }
 
-.anchor{
-  display: block; 
-  text-align: right; 
-  padding: 8px; 
+.anchor {
+  display: block;
+  text-align: right;
+  padding: 8px;
   margin-bottom: 4px;
   color: #1976d2;
   cursor: pointer;
 }
 
-.container{
+.container {
   padding: 10px;
 }
 </style>
